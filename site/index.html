@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日本の職業市場とAI</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #111;
+  color: #e0e0e0;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+#top-bar {
+  flex-shrink: 0;
+  background: #1a1a1a;
+  border-bottom: 1px solid #333;
+  padding: 8px 16px 6px;
+}
+#top-bar h1 { font-size: 17px; font-weight: 700; color: #fff; display: inline; }
+#top-bar .subtitle { font-size: 11px; color: #777; margin-left: 10px; }
+#controls {
+  display: flex; gap: 8px; padding: 5px 0 4px; align-items: center; flex-wrap: wrap;
+}
+.layer-btn {
+  padding: 4px 13px; border-radius: 20px; border: 1px solid #555;
+  background: #2a2a2a; color: #ccc; font-size: 12px; cursor: pointer;
+  font-family: inherit; transition: all 0.15s;
+}
+.layer-btn:hover { border-color: #888; color: #fff; }
+.layer-btn.active { background: #444; border-color: #aaa; color: #fff; font-weight: 600; }
+#stats-bar { font-size: 11px; color: #888; padding: 1px 0 0; min-height: 16px; }
+#stats-bar span { margin-right: 12px; }
+#canvas-wrap {
+  flex: 1;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background: #111;
+}
+canvas { display: block; cursor: pointer; }
+#tooltip {
+  position: fixed; background: rgba(0,0,0,0.9); border: 1px solid #555;
+  border-radius: 6px; padding: 8px 12px; font-size: 12px;
+  pointer-events: none; display: none; z-index: 100; max-width: 290px; line-height: 1.5;
+}
+#tooltip .tt-title { font-weight: 700; font-size: 13px; color: #fff; margin-bottom: 4px; }
+#tooltip .tt-row { display: flex; justify-content: space-between; gap: 10px; }
+#tooltip .tt-label { color: #aaa; }
+#tooltip .tt-val { color: #fff; font-weight: 500; }
+#tooltip .tt-hint { color: #555; font-size: 10px; margin-top: 5px; }
+#footer {
+  flex-shrink: 0; padding: 3px 16px; font-size: 10px; color: #444;
+  border-top: 1px solid #2a2a2a;
+}
+#footer a { color: #555; text-decoration: none; }
+#footer a:hover { color: #888; }
+#description {
+  font-size: 12px; color: #bbb; line-height: 1.6;
+  border-bottom: 1px solid #2a2a2a;
+  padding: 8px 16px 10px;
+  background: #161616;
+}
+#description p { margin-bottom: 6px; }
+#description p:last-child { margin-bottom: 0; }
+#description strong { color: #e0e0e0; }
+#description a { color: #6a9fd8; text-decoration: none; }
+#description a:hover { text-decoration: underline; }
+#desc-toggle {
+  font-size: 11px; color: #666; cursor: pointer; user-select: none;
+  padding: 3px 16px; background: #161616; border-bottom: 1px solid #222;
+  display: flex; align-items: center; gap: 5px;
+}
+#desc-toggle:hover { color: #999; }
+</style>
+</head>
+<body>
+
+<div id="top-bar">
+  <h1>日本の職業市場とAI</h1>
+  <span class="subtitle">556職業 · 就業者数を面積で表示 · jobtag × e-Stat × LLM分析</span>
+  <div id="controls">
+    <button class="layer-btn active" data-layer="outlook">雇用見通し</button>
+    <button class="layer-btn" data-layer="pay">年収</button>
+    <button class="layer-btn" data-layer="education">学歴</button>
+    <button class="layer-btn" data-layer="exposure">AI影響度</button>
+  </div>
+  <div id="stats-bar"></div>
+</div>
+
+<div id="desc-toggle" onclick="toggleDesc()">
+  <span id="desc-arrow">▶</span> このビジュアライザーについて
+</div>
+<div id="description" style="display:none">
+  <p>Andrej Karpathy による <a href="https://karpathy.ai/jobs/" target="_blank">US Job Market Visualizer</a>（<a href="https://github.com/karpathy/jobs" target="_blank">GitHub</a>）に触発され、同様のアプローチで日本版を制作しました。厚生労働省の <a href="https://shigoto.mhlw.go.jp/" target="_blank">jobtag</a> と <a href="https://www.e-stat.go.jp/" target="_blank">e-Stat 賃金構造基本統計調査 2022</a> をもとに、日本の <strong>556職種</strong>・<strong>約1,730万人</strong>の就業者データを可視化したリサーチツールです。各タイルの<strong>面積</strong>は就業者数（√変換）に比例します。タイルをクリックすると詳細が表示されます。</p>
+
+  <p><strong>使用技術:</strong> フロントエンドは <strong>バニラJS + HTML5 Canvas</strong>（フレームワーク不使用）でスクワリファイドツリーマップを実装。データパイプラインは <strong>Python（uv）</strong> で jobtag CSV・e-Stat JSON の結合・正規化を行い、<strong>OpenRouter API 経由の Google Gemini 2.0 Flash</strong> で556職種のAI影響度・雇用見通しを自動スコアリング（合計1,112回のLLM呼び出し）。成果物は静的 <code>data.json</code>（372KB）として配信。</p>
+
+  <p><strong>色の見方（上のボタンで切替）</strong> —
+  🟢🔴 <strong>雇用見通し</strong>: 今後10年の雇用増減（-5〜+5）。緑＝増加、赤＝減少。 ／
+  💴 <strong>年収</strong>: e-Stat 2022年の平均年収。青（低）→ 黄（中）→ 橙赤（高）。 ／
+  🎓 <strong>学歴</strong>: 必要学歴。紫＝中卒 → 青＝高卒 → 緑＝専門・大卒 → 橙赤＝修士・博士。 ／
+  🤖 <strong>AI影響度</strong>: LLMスコア（0〜10）。緑＝低影響（肉体・対人）、赤＝高影響（デジタル・定型認知）。</p>
+
+  <p><strong>データ処理:</strong>
+  jobtag職種データをキーワードで5大分類（専門技術・事務系・現場系・サービス・管理）に再分類。
+  専門技術はさらにIT・デジタル／法律・教育・言語／医療・理工・その他の3系統に細分化。
+  就業者数は√変換して面積に変換（極端な人数差を視覚的に調整）し、最小セルサイズを確保。
+  AI影響度・雇用見通しは <strong>Google Gemini 2.0 Flash</strong> に職種タイトル・説明・給与・就業者数を渡してスコアリング（各職種2回API呼出し、合計1,112回）。</p>
+
+  <p><strong>主な知見:</strong>
+  平均雇用見通し <strong>+0.5/5</strong>（微増傾向）。
+  高齢化により介護・医療・看護系が最も強い雇用増（+5/5）。
+  IT・デジタル職種は高AI影響度だが需要も旺盛で雇用増傾向。
+  製造・輸送・事務職は自動化・AI代替リスクが高く、雇用減少傾向（-1〜-3）。
+  平均AI影響度は <strong>約5.4/10</strong>。「高影響＝消滅」ではなく、AIが仕事の進め方を大きく変えることを意味します。</p>
+</div>
+
+<div id="canvas-wrap">
+  <canvas id="canvas"></canvas>
+</div>
+
+<div id="tooltip"></div>
+
+<div id="footer">
+  データ出典: <a href="https://shigoto.mhlw.go.jp/" target="_blank">jobtag (厚生労働省)</a> ·
+  <a href="https://www.e-stat.go.jp/" target="_blank">e-Stat 賃金構造基本統計調査 2022</a> ·
+  LLMスコアリング: Google Gemini 2.0 Flash ·
+  インスパイアド by <a href="https://karpathy.ai/jobs/" target="_blank">karpathy.ai/jobs</a>
+</div>
+
+<script>
+// ── Data ──────────────────────────────────────────────────────────────────────
+let DATA = [];
+let currentLayer = 'outlook';
+let rects = [];
+let hoveredIdx = -1;
+
+fetch('data.json').then(r => r.json()).then(data => {
+  DATA = data.filter(d => d.jobs > 0);
+  DATA.sort((a, b) => b.jobs - a.jobs);
+  init();
+});
+
+// ── Color functions ───────────────────────────────────────────────────────────
+
+function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+function lerp3(t, r1,g1,b1, r2,g2,b2) {
+  return [r1+(r2-r1)*t, g1+(g2-g1)*t, b1+(b2-b1)*t];
+}
+
+function lerp3tri(t, r1,g1,b1, r2,g2,b2, r3,g3,b3) {
+  if (t < 0.5) return lerp3(t*2, r1,g1,b1, r2,g2,b2);
+  return lerp3((t-0.5)*2, r2,g2,b2, r3,g3,b3);
+}
+
+function rgbStr(r,g,b) {
+  return `rgb(${Math.round(r)},${Math.round(g)},${Math.round(b)})`;
+}
+
+// Outlook: -5(red) → 0(gray) → +5(green)
+function outlookColor(v) {
+  const t = clamp((v + 5) / 10, 0, 1);
+  const [r,g,b] = lerp3tri(t, 180,40,40, 80,80,80, 40,160,80);
+  return rgbStr(r,g,b);
+}
+
+// Pay: 200万(dark blue) → 800万(yellow) → 1600万+(orange-red)
+function payColor(v) {
+  // v is annual yen
+  const man = v / 10000; // 万円
+  const t = clamp((man - 200) / 1400, 0, 1);
+  const [r,g,b] = lerp3tri(t, 30,50,140, 210,190,50, 200,80,20);
+  return rgbStr(r,g,b);
+}
+
+// Education order: 中卒以下 < 高卒 < 専門学校 < 短大卒 < 大卒 < 修士 < 博士
+const EDU_ORDER = ['中卒以下','高卒','専門学校','短大卒','大卒','修士','博士'];
+const EDU_COLORS = {
+  '中卒以下': 'rgb(100,60,120)',
+  '高卒':     'rgb(60,100,160)',
+  '専門学校': 'rgb(40,140,130)',
+  '短大卒':   'rgb(60,160,80)',
+  '大卒':     'rgb(200,180,40)',
+  '修士':     'rgb(220,120,30)',
+  '博士':     'rgb(210,50,50)',
+};
+function educationColor(edu) {
+  return EDU_COLORS[edu] || 'rgb(100,100,100)';
+}
+
+// AI Exposure: 0(dark green) → 5(yellow) → 10(red)
+function exposureColor(v) {
+  const t = clamp(v / 10, 0, 1);
+  const [r,g,b] = lerp3tri(t, 30,120,60, 210,190,50, 200,40,40);
+  return rgbStr(r,g,b);
+}
+
+function getColor(d) {
+  if (currentLayer === 'outlook') return outlookColor(d.outlook ?? 0);
+  if (currentLayer === 'pay') return d.pay ? payColor(d.pay) : 'rgb(60,60,60)';
+  if (currentLayer === 'education') return educationColor(d.education);
+  if (currentLayer === 'exposure') return exposureColor(d.exposure ?? 5);
+  return 'rgb(80,80,80)';
+}
+
+// ── Squarify treemap ──────────────────────────────────────────────────────────
+
+function squarify(items, x0, y0, w0, h0) {
+  const results = [];
+  if (!items.length || w0 < 1 || h0 < 1) return results;
+
+  const totalVal = items.reduce((s, it) => s + it.area, 0);
+  if (totalVal === 0) return results;
+
+  // Normalize areas to pixel area
+  const scale = (w0 * h0) / totalVal;
+  const normed = items.map(it => it.area * scale);
+
+  function worstRatio(row, len) {
+    const s = row.reduce((a,b) => a+b, 0);
+    const rMin = Math.min(...row);
+    const rMax = Math.max(...row);
+    return Math.max(len*len*rMax/(s*s), s*s/(len*len*rMin));
+  }
+
+  function layoutStrip(row, indices, x, y, w, h, horiz) {
+    const s = row.reduce((a,b) => a+b, 0);
+    const thick = s / (horiz ? w : h);
+    let pos = horiz ? x : y;
+    for (let i = 0; i < row.length; i++) {
+      const len = row[i] / thick;
+      results.push({
+        item: items[indices[i]],
+        x: horiz ? pos : x,
+        y: horiz ? y   : pos,
+        w: horiz ? len : thick,
+        h: horiz ? thick : len,
+      });
+      pos += len;
+    }
+    return horiz ? [x, y+thick, w, h-thick] : [x+thick, y, w-thick, h];
+  }
+
+  let x = x0, y = y0, w = w0, h = h0;
+  let row = [], rowIdx = [];
+  let i = 0;
+
+  while (i < normed.length) {
+    const len = Math.min(w, h);
+    const testRow = [...row, normed[i]];
+    const testIdx = [...rowIdx, i];
+    if (!row.length || worstRatio(testRow, len) <= worstRatio(row, len)) {
+      row.push(normed[i]);
+      rowIdx.push(i);
+      i++;
+    } else {
+      [x, y, w, h] = layoutStrip(row, rowIdx, x, y, w, h, w >= h);
+      row = []; rowIdx = [];
+    }
+  }
+  if (row.length) layoutStrip(row, rowIdx, x, y, w, h, w >= h);
+
+  return results;
+}
+
+// ── Canvas ────────────────────────────────────────────────────────────────────
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const wrap = document.getElementById('canvas-wrap');
+
+// ── 5大分類 definition ────────────────────────────────────────────────────────
+const SUPER_GROUPS = [
+  { name: '管理類',   cats: ['管理職'],                                          color: '#4a6fa5' },
+  { name: '専門技術', cats: ['専門技術'], subOrder: ['IT・デジタル','法律・教育・言語','医療・理工・その他'], color: '#5a8a5a' },
+  { name: '事務系',   cats: ['事務','販売'],                                      color: '#8a6a3a' },
+  { name: '現場系',   cats: ['生産工程','建設','輸送','農林漁業','運搬清掃'],      color: '#7a4a4a' },
+  { name: 'サービス・その他', cats: ['サービス','保安'],                          color: '#5a5a8a' },
+];
+
+const IT_KEYWORDS = [
+  'システム','プログラム','ソフトウェア','デバッグ','UX','UI','セキュリティ','データ',
+  'AI','Web','ゲーム','情報工学','ITコンサル','ヘルプデスク','DX','ブロックチェーン',
+  'ネットワーク','クラウド','機械学習','アルゴリズム','データベース','インフラ',
+  '動画制作','CG','映像編集','アニメ','エンジニア','デジタル','サイバー','IoT',
+];
+function isITOcc(title) { return IT_KEYWORDS.some(kw => title.includes(kw)); }
+
+const LEGAL_EDU_KEYWORDS = [
+  '教員','保育士','幼稚園','学童','社会教育',
+  '弁護士','司法書士','行政書士','法務','弁理士','検察官','裁判官',
+  'アナウンサー','声優','通訳','記者','音声反訳',
+  'コンサルタント','カウンセラー','アドバイザー','コーチ',
+];
+function isLegalEduOcc(title) { return LEGAL_EDU_KEYWORDS.some(kw => title.includes(kw)); }
+
+const AREA_FLOOR = Math.sqrt(30000);
+const S_HEADER = 30; // section header height
+const SUB_HEADER = 18; // sub-category header height
+const GAP = 3;
+const CELL_GAP = 1;
+
+function buildLayout(W) {
+  // Build a lookup: category → super-group index
+  const catToSG = {};
+  for (const sg of SUPER_GROUPS) sg.cats.forEach(c => catToSG[c] = sg.name);
+
+  // Group data into super-groups → sub-categories
+  const sgMap = {};
+  for (const sg of SUPER_GROUPS) sgMap[sg.name] = {};
+
+  for (const d of DATA) {
+    const sgName = catToSG[d.category] || 'サービス・その他';
+    let subName = d.category;
+    if (d.category === '専門技術') {
+      if (isITOcc(d.title)) subName = 'IT・デジタル';
+      else if (isLegalEduOcc(d.title)) subName = '法律・教育・言語';
+      else subName = '医療・理工・その他';
+    }
+    if (!sgMap[sgName][subName]) sgMap[sgName][subName] = [];
+    sgMap[sgName][subName].push(d);
+  }
+
+  const allRects = [];
+  const sectionBounds = [];
+  const subBounds = [];
+  let currentY = 0;
+
+  // 管理類 and サービス・その他 share the bottom row — render them together
+  const PAIRED_BOTTOM = ['管理類', 'サービス・その他'];
+  const singleGroups = SUPER_GROUPS.filter(sg => !PAIRED_BOTTOM.includes(sg.name));
+  const pairedGroups = SUPER_GROUPS.filter(sg => PAIRED_BOTTOM.includes(sg.name));
+
+  function renderSubsInto(sg, subs, startX, secW, innerY, innerH) {
+    let subList = Object.entries(subs).map(([name, items]) => ({
+      name, items, sqrtN: Math.sqrt(items.length)
+    }));
+    if (sg.subOrder) {
+      subList.sort((a, b) => {
+        const ai = sg.subOrder.indexOf(a.name), bi = sg.subOrder.indexOf(b.name);
+        return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+      });
+    }
+    const totalSqrtN = subList.reduce((s, c) => s + c.sqrtN, 0);
+    let subX = startX;
+    for (const sub of subList) {
+      const subW = (sub.sqrtN / totalSqrtN) * secW;
+      const bx = subX + GAP;
+      const by = innerY;
+      const bw = subW - GAP * 2;
+      const bh = innerH;
+      if (bw >= 8 && bh >= 8) {
+        subBounds.push({ name: sub.name, sgColor: sg.color, x: bx, y: by, w: bw, h: bh });
+        const occY = by + SUB_HEADER;
+        const occH = bh - SUB_HEADER;
+        if (occH >= 6) {
+          const items = sub.items.map(d => ({ ...d, area: Math.max(Math.sqrt(d.jobs || 1), AREA_FLOOR) }));
+          items.sort((a, b) => b.area - a.area);
+          const placed = squarify(items, bx, occY, bw, occH);
+          for (const r of placed) {
+            allRects.push({
+              item: r.item,
+              x: r.x + CELL_GAP, y: r.y + CELL_GAP,
+              w: r.w - CELL_GAP * 2, h: r.h - CELL_GAP * 2,
+            });
+          }
+        }
+      }
+      subX += subW;
+    }
+  }
+
+  // Render single full-width sections first
+  for (const sg of singleGroups) {
+    const subs = sgMap[sg.name];
+    const totalOccs = Object.values(subs).reduce((s, arr) => s + arr.length, 0);
+    if (!totalOccs) continue;
+
+    const secH = Math.max(W / 5, Math.sqrt(totalOccs) * 46);
+    sectionBounds.push({ sg, x: 0, y: currentY, w: W, h: secH, count: totalOccs });
+
+    const innerY = currentY + S_HEADER + GAP;
+    const innerH = secH - S_HEADER - GAP * 2;
+    renderSubsInto(sg, subs, 0, W, innerY, innerH);
+    currentY += secH;
+  }
+
+  // Render paired bottom row: 管理類 (left) | サービス・その他 (right)
+  const pairedTotalOccs = pairedGroups.reduce((s, sg) => {
+    return s + Object.values(sgMap[sg.name]).reduce((ss, arr) => ss + arr.length, 0);
+  }, 0);
+  if (pairedTotalOccs > 0) {
+    const rowH = Math.max(W / 5, Math.sqrt(pairedTotalOccs) * 46);
+
+    // Divide width by sqrt(numOccs) ratio between the two groups
+    const pairedCounts = pairedGroups.map(sg =>
+      Object.values(sgMap[sg.name]).reduce((s, arr) => s + arr.length, 0)
+    );
+    const totalSqrtPaired = pairedCounts.reduce((s, n) => s + Math.sqrt(n), 0);
+
+    let pairX = 0;
+    for (let pi = 0; pi < pairedGroups.length; pi++) {
+      const sg = pairedGroups[pi];
+      const subs = sgMap[sg.name];
+      const cnt = pairedCounts[pi];
+      if (!cnt) continue;
+
+      const sgW = (Math.sqrt(cnt) / totalSqrtPaired) * W;
+      sectionBounds.push({ sg, x: pairX, y: currentY, w: sgW, h: rowH, count: cnt });
+
+      const innerY = currentY + S_HEADER + GAP;
+      const innerH = rowH - S_HEADER - GAP * 2;
+      renderSubsInto(sg, subs, pairX, sgW, innerY, innerH);
+      pairX += sgW;
+    }
+    currentY += rowH;
+  }
+
+  return { allRects, sectionBounds, subBounds, totalH: currentY };
+}
+
+function drawCell(item, x, y, w, h, hovered) {
+  if (w < 1 || h < 1) return;
+  ctx.fillStyle = getColor(item);
+  ctx.fillRect(x, y, w, h);
+  if (hovered) {
+    ctx.fillStyle = 'rgba(255,255,255,0.18)';
+    ctx.fillRect(x, y, w, h);
+    ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(x+0.75, y+0.75, w-1.5, h-1.5);
+  }
+  ctx.save();
+  ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
+  const title = item.title || '';
+  if (w >= 18 && h >= 11) {
+    let fs = 12;
+    if (w < 80 || h < 32) fs = 10;
+    if (w < 45 || h < 20) fs = 9;
+    if (w < 28 || h < 14) fs = 8;
+    ctx.font = `${fs}px -apple-system,"Hiragino Kaku Gothic ProN",sans-serif`;
+    ctx.fillStyle = 'rgba(255,255,255,0.92)';
+    const maxChars = Math.max(2, Math.floor(w / (fs * 0.62)));
+    ctx.fillText(title.length > maxChars ? title.slice(0, maxChars-1)+'…' : title, x+3, y+fs+2);
+    if (h >= fs + 17) {
+      let sub = '';
+      if (currentLayer==='outlook') sub = item.outlook!=null ? (item.outlook>0?'+':'')+item.outlook+'/5' : '';
+      else if (currentLayer==='pay') sub = item.pay ? Math.round(item.pay/10000)+'万円' : '';
+      else if (currentLayer==='education') sub = item.education||'';
+      else if (currentLayer==='exposure') sub = item.exposure!=null ? `AI ${item.exposure}/10` : '';
+      if (sub) {
+        ctx.font = `${fs-1}px -apple-system,sans-serif`;
+        ctx.fillStyle = 'rgba(255,255,255,0.6)';
+        ctx.fillText(sub, x+3, y+fs*2+3);
+      }
+    }
+  }
+  ctx.restore();
+}
+
+function draw() {
+  const W = wrap.clientWidth;
+  if (!DATA.length || !W) return;
+
+  const { allRects, sectionBounds, subBounds, totalH } = buildLayout(W);
+  canvas.width = W;
+  canvas.height = totalH;
+  rects = allRects;
+
+  ctx.fillStyle = '#111';
+  ctx.fillRect(0, 0, W, totalH);
+
+  // Occupation cells
+  for (let i = 0; i < allRects.length; i++) {
+    const { item, x, y, w, h } = allRects[i];
+    drawCell(item, x, y, w, h, i === hoveredIdx);
+  }
+
+  // Sub-category headers
+  for (const sb of subBounds) {
+    ctx.fillStyle = 'rgba(0,0,0,0.5)';
+    ctx.fillRect(sb.x, sb.y, sb.w, SUB_HEADER);
+    ctx.save();
+    ctx.beginPath(); ctx.rect(sb.x, sb.y, sb.w, SUB_HEADER); ctx.clip();
+    ctx.font = `bold 10px -apple-system,"Hiragino Kaku Gothic ProN",sans-serif`;
+    ctx.fillStyle = 'rgba(255,255,255,0.75)';
+    const maxC = Math.max(2, Math.floor(sb.w / 6.5));
+    ctx.fillText(sb.name.length>maxC ? sb.name.slice(0,maxC-1)+'…' : sb.name, sb.x+4, sb.y+13);
+    ctx.restore();
+    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(sb.x+0.5, sb.y+0.5, sb.w-1, sb.h-1);
+  }
+
+  // Section headers (drawn last so they're on top)
+  for (const sec of sectionBounds) {
+    ctx.fillStyle = sec.sg.color + 'cc';
+    ctx.fillRect(sec.x, sec.y, sec.w, S_HEADER);
+    ctx.font = `bold 14px -apple-system,"Hiragino Kaku Gothic ProN",sans-serif`;
+    ctx.fillStyle = '#fff';
+    ctx.fillText(`${sec.sg.name}  (${sec.count}職種)`, sec.x + 10, sec.y + 20);
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(sec.x+1, sec.y+1, sec.w-2, sec.h-2);
+  }
+}
+
+// ── Stats bar ─────────────────────────────────────────────────────────────────
+
+function updateStats() {
+  const bar = document.getElementById('stats-bar');
+  const valid = DATA.filter(d => d.outlook !== null);
+  const totalWorkers = DATA.reduce((s,d) => s+(d.jobs||0), 0);
+
+  if (currentLayer === 'outlook') {
+    const grow  = DATA.filter(d => (d.outlook||0) > 0).reduce((s,d)=>s+(d.jobs||0),0);
+    const dec   = DATA.filter(d => (d.outlook||0) < 0).reduce((s,d)=>s+(d.jobs||0),0);
+    const stable= DATA.filter(d => (d.outlook||0) === 0).reduce((s,d)=>s+(d.jobs||0),0);
+    const avgO  = valid.length ? (valid.reduce((s,d)=>s+(d.outlook||0),0)/valid.length).toFixed(1) : '-';
+    bar.innerHTML = `
+      <span>🟢 雇用増加: ${fmt万人(grow)}</span>
+      <span>⚪ 横ばい: ${fmt万人(stable)}</span>
+      <span>🔴 雇用減少: ${fmt万人(dec)}</span>
+      <span>平均見通し: ${avgO > 0 ? '+'+avgO : avgO}/5</span>
+      <span>総就業者: ${fmt万人(totalWorkers)}</span>
+    `;
+  } else if (currentLayer === 'pay') {
+    const withPay = DATA.filter(d => d.pay);
+    const avgPay = withPay.length ? Math.round(withPay.reduce((s,d)=>s+d.pay,0)/withPay.length/10000) : '-';
+    const maxPay = withPay.length ? Math.round(Math.max(...withPay.map(d=>d.pay))/10000) : '-';
+    const minPay = withPay.length ? Math.round(Math.min(...withPay.map(d=>d.pay))/10000) : '-';
+    bar.innerHTML = `
+      <span>平均年収: ${avgPay}万円</span>
+      <span>最高: ${maxPay}万円</span>
+      <span>最低: ${minPay}万円</span>
+      <span>総就業者: ${fmt万人(totalWorkers)}</span>
+    `;
+  } else if (currentLayer === 'education') {
+    const counts = {};
+    for (const e of EDU_ORDER) {
+      const n = DATA.filter(d=>d.education===e).reduce((s,d)=>s+(d.jobs||0),0);
+      if (n > 0) counts[e] = n;
+    }
+    bar.innerHTML = Object.entries(counts).map(([e,n])=>
+      `<span style="color:${EDU_COLORS[e]}">${e}: ${fmt万人(n)}</span>`
+    ).join('') + `<span>総就業者: ${fmt万人(totalWorkers)}</span>`;
+  } else if (currentLayer === 'exposure') {
+    const withExp = DATA.filter(d => d.exposure !== null);
+    const avgExp = withExp.length ? (withExp.reduce((s,d)=>s+(d.exposure||0),0)/withExp.length).toFixed(1) : '-';
+    const high = DATA.filter(d=>(d.exposure||0)>=7).reduce((s,d)=>s+(d.jobs||0),0);
+    const low  = DATA.filter(d=>(d.exposure||0)<=3).reduce((s,d)=>s+(d.jobs||0),0);
+    bar.innerHTML = `
+      <span>平均AI影響度: ${avgExp}/10</span>
+      <span>🔴 高影響 (7+): ${fmt万人(high)}</span>
+      <span>🟢 低影響 (3以下): ${fmt万人(low)}</span>
+      <span>総就業者: ${fmt万人(totalWorkers)}</span>
+    `;
+  }
+}
+
+function fmt万人(n) {
+  const man = n / 10000;
+  if (man >= 10000) return (man/10000).toFixed(1)+'億人';
+  if (man >= 100) return (man/100).toFixed(1)+'百万人';
+  return Math.round(man)+'万人';
+}
+
+// ── Tooltip ───────────────────────────────────────────────────────────────────
+
+const tooltip = document.getElementById('tooltip');
+
+function showTooltip(d, mx, my) {
+  const outlookLabel = {
+    '-5': '急激に減少', '-3': '減少傾向', '-1': 'やや減少',
+    '0': '横ばい', '1': 'やや増加', '3': '増加傾向', '5': '急激に増加'
+  };
+  const rows = [];
+  rows.push(`<div class="tt-row"><span class="tt-label">カテゴリ</span><span class="tt-val">${d.category}</span></div>`);
+  if (d.pay) rows.push(`<div class="tt-row"><span class="tt-label">平均年収</span><span class="tt-val">${Math.round(d.pay/10000)}万円</span></div>`);
+  if (d.jobs) rows.push(`<div class="tt-row"><span class="tt-label">就業者数</span><span class="tt-val">${d.jobs.toLocaleString()}人</span></div>`);
+  if (d.outlook !== null) {
+    const ol = outlookLabel[String(d.outlook)] || d.outlook;
+    rows.push(`<div class="tt-row"><span class="tt-label">雇用見通し</span><span class="tt-val">${d.outlook > 0 ? '+' : ''}${d.outlook}/5 ${ol}</span></div>`);
+    if (d.outlook_desc) rows.push(`<div class="tt-row"><span class="tt-label" style="min-width:60px"></span><span class="tt-val" style="color:#aaa;font-size:11px">${d.outlook_desc}</span></div>`);
+  }
+  if (d.education) rows.push(`<div class="tt-row"><span class="tt-label">学歴</span><span class="tt-val">${d.education}</span></div>`);
+  if (d.exposure !== null) rows.push(`<div class="tt-row"><span class="tt-label">AI影響度</span><span class="tt-val">${d.exposure}/10</span></div>`);
+  if (d.exposure_rationale) rows.push(`<div style="color:#888;font-size:11px;margin-top:4px">${d.exposure_rationale.slice(0,120)}...</div>`);
+  rows.push(`<div class="tt-hint">クリックでjobtag詳細を開く</div>`);
+
+  tooltip.innerHTML = `<div class="tt-title">${d.title}</div>` + rows.join('');
+  tooltip.style.display = 'block';
+
+  const pad = 12;
+  let tx = mx + pad, ty = my + pad;
+  const tw = tooltip.offsetWidth, th = tooltip.offsetHeight;
+  if (tx + tw > window.innerWidth - pad) tx = mx - tw - pad;
+  if (ty + th > window.innerHeight - pad) ty = my - th - pad;
+  tooltip.style.left = tx + 'px';
+  tooltip.style.top  = ty + 'px';
+}
+
+function hideTooltip() {
+  tooltip.style.display = 'none';
+}
+
+// ── Event handlers ────────────────────────────────────────────────────────────
+
+function rectAt(mx, my) {
+  for (let i = rects.length - 1; i >= 0; i--) {
+    const r = rects[i];
+    if (mx >= r.x && mx < r.x+r.w && my >= r.y && my < r.y+r.h) return i;
+  }
+  return -1;
+}
+
+canvas.addEventListener('mousemove', e => {
+  const cr = canvas.getBoundingClientRect();
+  // mx/my relative to canvas top (accounting for scroll)
+  const mx = e.clientX - cr.left;
+  const my = e.clientY - cr.top;
+  const idx = rectAt(mx, my);
+  if (idx !== hoveredIdx) { hoveredIdx = idx; draw(); }
+  if (idx >= 0) showTooltip(rects[idx].item, e.clientX, e.clientY);
+  else hideTooltip();
+});
+
+canvas.addEventListener('mouseleave', () => { hoveredIdx = -1; hideTooltip(); draw(); });
+
+canvas.addEventListener('click', e => {
+  const cr = canvas.getBoundingClientRect();
+  const idx = rectAt(e.clientX - cr.left, e.clientY - cr.top);
+  if (idx >= 0 && rects[idx].item.url) window.open(rects[idx].item.url, '_blank');
+});
+
+document.querySelectorAll('.layer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.layer-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentLayer = btn.dataset.layer;
+    updateStats();
+    draw();
+  });
+});
+
+window.addEventListener('resize', draw);
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+function init() {
+  updateStats();
+  draw();
+}
+
+function toggleDesc() {
+  const d = document.getElementById('description');
+  const arrow = document.getElementById('desc-arrow');
+  const open = d.style.display === 'none';
+  d.style.display = open ? 'block' : 'none';
+  arrow.textContent = open ? '▼' : '▶';
+}
+</script>
+</body>
+</html>

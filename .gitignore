@@ -1,0 +1,17 @@
+# Raw data downloads (large, reproducible)
+jobtag_description.csv
+jobtag_numeric.csv
+estat_wages_2022.json
+jobtag_wage_matched.json
+
+# Intermediate pipeline outputs
+occupations_jp.json
+scores_jp.json
+
+# Python
+__pycache__/
+*.pyc
+.env
+
+# OS
+.DS_Store
