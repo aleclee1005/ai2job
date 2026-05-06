@@ -1245,6 +1245,13 @@ function renderExecJobs() {
       `<button class="ej-filter-btn" data-role="${escHtml(rk)}" onclick="filterExecJobs(${JSON.stringify(rk)})">${escHtml(rk)}</button>`)
   ].join('');
 
+  const isSample = !!d.note;
+  const sampleBanner = isSample ? `
+    <div style="background:#2a2200;border:1px solid #5a4800;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:#c8a84a;line-height:1.6">
+      ⚠️ <strong>サンプルデータ表示中</strong> — 求人カードのリンクは各サイトのキーワード検索結果に移動します（個別求人ページではありません）。<br>
+      実際の求人データを取得するには: <code style="background:#3a2800;padding:1px 6px;border-radius:3px">python scrape_exec_jobs.py</code>
+    </div>` : '';
+
   document.getElementById('panel-execjobs').innerHTML = `
     <div id="ej-header">
       <div>
@@ -1253,6 +1260,8 @@ function renderExecJobs() {
       </div>
       <button id="ej-refresh-btn" onclick="execJobsLoaded=false;loadExecJobs()">↻ 更新</button>
     </div>
+
+    ${sampleBanner}
 
     <div id="ej-role-grid">${roleCards}</div>
 
@@ -1336,12 +1345,15 @@ function renderExecCards() {
       .map(s => `<span class="skill-tag">${escHtml(s)}</span>`).join('');
     const isNew = j.is_new
       ? `<span style="font-size:9px;background:#2a4a2a;color:#7bc87b;padding:1px 5px;border-radius:3px;margin-left:6px">NEW</span>` : '';
+    const linkLabel = j.url_is_search
+      ? `<span class="ej-source-badge" title="キーワード検索結果へ">🔍 ${escHtml(j.source_label||j.source||'')}</span>`
+      : `<span class="ej-source-badge">${escHtml(j.source_label||j.source||'')}</span>`;
     return `
       <a class="ej-job-card" href="${escHtml(j.url||'#')}" target="_blank" rel="noopener"
          style="--rc:${col}">
         <div class="ej-job-card__top">
           <div class="ej-job-card__title">${escHtml(j.title)}${isNew}</div>
-          <span class="ej-source-badge">${escHtml(j.source_label||j.source||'')}</span>
+          ${linkLabel}
         </div>
         <div class="ej-job-card__meta">
           <span style="color:${col};margin-right:6px">${r.icon||''}  ${escHtml(j.role_category||'')}</span>

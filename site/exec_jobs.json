@@ -174,9 +174,10 @@
       ],
       "source": "doda.jp",
       "source_label": "Doda",
-      "url": "https://doda.jp/DodaFront/View/JobSearchList/j_keyword=CAIO/",
+      "url": "https://doda.jp/DodaFront/View/JobSearchList/j_keyword=%E6%9C%80%E9%AB%98AI%E8%B2%AC%E4%BB%BB%E8%80%85%EF%BC%88CAIO%EF%BC%89/",
       "posted": "2026-04-28",
-      "description": "ソフトバンクグループ全体のAI戦略を統括するCAIOを募集。グループ各社のAI導入推進・倫理ガバナンス整備・CEO直属チームの組成を担います。生成AI・LLM実装の深い理解と、取締役レベルへのコミュニケーション経験必須。"
+      "description": "ソフトバンクグループ全体のAI戦略を統括するCAIOを募集。グループ各社のAI導入推進・倫理ガバナンス整備・CEO直属チームの組成を担います。生成AI・LLM実装の深い理解と、取締役レベルへのコミュニケーション経験必須。",
+      "url_is_search": true
     },
     {
       "title": "Chief AI Officer（CAIO）",
@@ -197,9 +198,10 @@
       ],
       "source": "jp.indeed.com",
       "source_label": "Indeed",
-      "url": "https://jp.indeed.com/jobs?q=Chief+AI+Officer&l=%E6%97%A5%E6%9C%AC",
+      "url": "https://jp.indeed.com/jobs?q=Chief%20AI%20Officer%EF%BC%88CAIO%EF%BC%89&l=%E6%97%A5%E6%9C%AC",
       "posted": "2026-05-01",
-      "description": "NTTデータグループにおけるAI戦略の最高責任者。グローバル展開に向けたAIロードマップ策定、社外パートナー（研究機関・クラウドベンダー）との戦略連携、AI倫理委員会の設置と運営を主導します。"
+      "description": "NTTデータグループにおけるAI戦略の最高責任者。グローバル展開に向けたAIロードマップ策定、社外パートナー（研究機関・クラウドベンダー）との戦略連携、AI倫理委員会の設置と運営を主導します。",
+      "url_is_search": true
     },
     {
       "title": "Chief Artificial Intelligence Officer",
@@ -221,9 +223,10 @@
       ],
       "source": "linkedin.com",
       "source_label": "LinkedIn",
-      "url": "https://www.linkedin.com/jobs/search/?keywords=Chief+AI+Officer&location=Japan",
+      "url": "https://www.linkedin.com/jobs/search/?keywords=Chief%20Artificial%20Intelligence%20Officer&location=Japan",
       "posted": "2026-04-20",
-      "description": "Fujitsu Uvance戦略の中核を担うCAIO。グローバル25,000名超のAI人材組織を統括し、全社AI倫理フレームワーク策定・AI投資ROI管理・経営会議へのAI戦略報告を行います。英語ビジネスレベル必須。"
+      "description": "Fujitsu Uvance戦略の中核を担うCAIO。グローバル25,000名超のAI人材組織を統括し、全社AI倫理フレームワーク策定・AI投資ROI管理・経営会議へのAI戦略報告を行います。英語ビジネスレベル必須。",
+      "url_is_search": true
     },
     {
       "title": "最高AI責任者（CAIO）候補",
@@ -244,9 +247,10 @@
       ],
       "source": "kyujinbox.com",
       "source_label": "求人ボックス",
-      "url": "https://kyujinbox.com/search?q=最高AI責任者",
+      "url": "https://kyujinbox.com/search?q=%E6%9C%80%E9%AB%98AI%E8%B2%AC%E4%BB%BB%E8%80%85%EF%BC%88CAIO%EF%BC%89%E5%80%99%E8%A3%9C",
       "posted": "2026-04-15",
-      "description": "モビリティカンパニーへの転換を支えるAI戦略最高責任者。自動運転・製造DX・カーボンニュートラルに向けたAI活用を統括。社内外研究機関との連携、AI人材戦略の策定・実行を担います。"
+      "description": "モビリティカンパニーへの転換を支えるAI戦略最高責任者。自動運転・製造DX・カーボンニュートラルに向けたAI活用を統括。社内外研究機関との連携、AI人材戦略の策定・実行を担います。",
+      "url_is_search": true
     },
     {
       "title": "Head of AI / AIディレクター",
@@ -267,9 +271,10 @@
       ],
       "source": "doda.jp",
       "source_label": "Doda",
-      "url": "https://doda.jp/DodaFront/View/JobSearchList/j_keyword=Head+of+AI/",
+      "url": "https://doda.jp/DodaFront/View/JobSearchList/j_keyword=Head%20of%20AI%20/%20AI%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%82%BF%E3%83%BC/",
       "posted": "2026-04-30",
-      "description": "PKSHAのAI研究・開発部門を率いるHead of AI。LLM・生成AI技術を活用したエンタープライズ向けプロダクト開発、研究チーム20名のマネジメント、顧客企業へのAI導入支援PoCを主導します。"
+      "description": "PKSHAのAI研究・開発部門を率いるHead of AI。LLM・生成AI技術を活用したエンタープライズ向けプロダクト開発、研究チーム20名のマネジメント、顧客企業へのAI導入支援PoCを主導します。",
+      "url_is_search": true
     },
     {
       "title": "AI Director（生成AI推進本部長）",
@@ -290,9 +295,10 @@
       ],
       "source": "jp.indeed.com",
       "source_label": "Indeed",
-      "url": "https://jp.indeed.com/jobs?q=AI+Director&l=%E6%97%A5%E6%9C%AC",
+      "url": "https://jp.indeed.com/jobs?q=AI%20Director%EF%BC%88%E7%94%9F%E6%88%90AI%E6%8E%A8%E9%80%B2%E6%9C%AC%E9%83%A8%E9%95%B7%EF%BC%89&l=%E6%97%A5%E6%9C%AC",
       "posted": "2026-04-25",
-      "description": "NEC生成AI推進本部の本部長候補。社会インフラ・公共・製造領域向けの生成AIソリューション開発を統括。50名超のAIチームをマネジメントし、事業部門との共同PoC推進から本番展開まで責任を持ちます。"
+      "description": "NEC生成AI推進本部の本部長候補。社会インフラ・公共・製造領域向けの生成AIソリューション開発を統括。50名超のAIチームをマネジメントし、事業部門との共同PoC推進から本番展開まで責任を持ちます。",
+      "url_is_search": true
     },
     {
       "title": "Director of AI Research & Engineering",
@@ -315,9 +321,10 @@
       ],
       "source": "linkedin.com",
       "source_label": "LinkedIn",
-      "url": "https://www.linkedin.com/jobs/search/?keywords=AI+Director&location=Japan",
+      "url": "https://www.linkedin.com/jobs/search/?keywords=Director%20of%20AI%20Research%20%26%20Engineering&location=Japan",
       "posted": "2026-04-18",
-      "description": "Accenture Japan AI Centerを率いるDirector。クライアント企業へのGenerative AI導入支援、AI研究エンジニア35名のリード、グローバルAI Centerとの技術連携を担当します。英語必須。"
+      "description": "Accenture Japan AI Centerを率いるDirector。クライアント企業へのGenerative AI導入支援、AI研究エンジニア35名のリード、グローバルAI Centerとの技術連携を担当します。英語必須。",
+      "url_is_search": true
     },
     {
       "title": "AIディレクター（金融AI本部）",
@@ -338,9 +345,10 @@
       ],
       "source": "kyujinbox.com",
       "source_label": "求人ボックス",
-      "url": "https://kyujinbox.com/search?q=AIディレクター",
+      "url": "https://kyujinbox.com/search?q=AI%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%82%BF%E3%83%BC%EF%BC%88%E9%87%91%E8%9E%8DAI%E6%9C%AC%E9%83%A8%EF%BC%89",
       "posted": "2026-04-10",
-      "description": "みずほグループ金融AI本部の統括ディレクター。信用リスク・マーケットリスク・不正検知AIシステムの開発・運用、規制当局対応、AI倫理審査委員会の運営を担います。金融規制知識があれば尚可。"
+      "description": "みずほグループ金融AI本部の統括ディレクター。信用リスク・マーケットリスク・不正検知AIシステムの開発・運用、規制当局対応、AI倫理審査委員会の運営を担います。金融規制知識があれば尚可。",
+      "url_is_search": true
     },
     {
       "title": "Head of AI — IBM Consulting Japan",
@@ -363,9 +371,10 @@
       ],
       "source": "doda.jp",
       "source_label": "Doda",
-      "url": "https://doda.jp/DodaFront/View/JobSearchList/j_keyword=Head+of+AI/",
+      "url": "https://doda.jp/DodaFront/View/JobSearchList/j_keyword=Head%20of%20AI%20%E2%80%94%20IBM%20Consulting%20Japan/",
       "posted": "2026-05-02",
-      "description": "IBM Consulting JapanのHead of AI。watsonx活用によるエンタープライズ向けAI導入プロジェクトの統括、コンサルタント・エンジニア40名のマネジメント、顧客経営層へのAI戦略提言を行います。"
+      "description": "IBM Consulting JapanのHead of AI。watsonx活用によるエンタープライズ向けAI導入プロジェクトの統括、コンサルタント・エンジニア40名のマネジメント、顧客経営層へのAI戦略提言を行います。",
+      "url_is_search": true
     },
     {
       "title": "VP of AI Strategy（AI戦略責任者）",
@@ -386,9 +395,10 @@
       ],
       "source": "linkedin.com",
       "source_label": "LinkedIn",
-      "url": "https://www.linkedin.com/jobs/search/?keywords=VP+of+AI&location=Japan",
+      "url": "https://www.linkedin.com/jobs/search/?keywords=VP%20of%20AI%20Strategy%EF%BC%88AI%E6%88%A6%E7%95%A5%E8%B2%AC%E4%BB%BB%E8%80%85%EF%BC%89&location=Japan",
       "posted": "2026-04-29",
-      "description": "デロイトトーマツのAI戦略部門VP。クライアント企業（大手日系・外資系）へのAI戦略立案支援、グローバルAI Centerとの連携、新規AI関連M&Aアドバイザリー案件の主導。MBA・英語ビジネスレベル必須。"
+      "description": "デロイトトーマツのAI戦略部門VP。クライアント企業（大手日系・外資系）へのAI戦略立案支援、グローバルAI Centerとの連携、新規AI関連M&Aアドバイザリー案件の主導。MBA・英語ビジネスレベル必須。",
+      "url_is_search": true
     },
     {
       "title": "AI Vice President — Japan Lead",
@@ -410,9 +420,10 @@
       ],
       "source": "jp.indeed.com",
       "source_label": "Indeed",
-      "url": "https://jp.indeed.com/jobs?q=VP+AI&l=%E6%97%A5%E6%9C%AC",
+      "url": "https://jp.indeed.com/jobs?q=AI%20Vice%20President%20%E2%80%94%20Japan%20Lead&l=%E6%97%A5%E6%9C%AC",
       "posted": "2026-04-27",
-      "description": "Microsoft Japan AI事業の総責任者VP。Azure OpenAI Serviceの日本市場戦略策定、エンタープライズ顧客へのCopilot展開推進、日本政府・規制機関との対話、P&L 約1,000億円規模の管理。"
+      "description": "Microsoft Japan AI事業の総責任者VP。Azure OpenAI Serviceの日本市場戦略策定、エンタープライズ顧客へのCopilot展開推進、日本政府・規制機関との対話、P&L 約1,000億円規模の管理。",
+      "url_is_search": true
     },
     {
       "title": "AI戦略リード（Senior VP相当）",
@@ -433,9 +444,10 @@
       ],
       "source": "doda.jp",
       "source_label": "Doda",
-      "url": "https://doda.jp/DodaFront/View/JobSearchList/j_keyword=AI戦略責任者/",
+      "url": "https://doda.jp/DodaFront/View/JobSearchList/j_keyword=AI%E6%88%A6%E7%95%A5%E3%83%AA%E3%83%BC%E3%83%89%EF%BC%88Senior%20VP%E7%9B%B8%E5%BD%93%EF%BC%89/",
       "posted": "2026-04-12",
-      "description": "McKinsey QuantumBlack Japanを牽引するAI戦略リード。日本のトップ企業へのAI変革・組織変革アドバイザリー、グローバルQuantumBlackチームとの連携、新規クライアント開拓。英語・MBA必須。"
+      "description": "McKinsey QuantumBlack Japanを牽引するAI戦略リード。日本のトップ企業へのAI変革・組織変革アドバイザリー、グローバルQuantumBlackチームとの連携、新規クライアント開拓。英語・MBA必須。",
+      "url_is_search": true
     },
     {
       "title": "VP of AI — リクルート次世代AI戦略",
@@ -456,9 +468,10 @@
       ],
       "source": "kyujinbox.com",
       "source_label": "求人ボックス",
-      "url": "https://kyujinbox.com/search?q=AI戦略リード",
+      "url": "https://kyujinbox.com/search?q=VP%20of%20AI%20%E2%80%94%20%E3%83%AA%E3%82%AF%E3%83%AB%E3%83%BC%E3%83%88%E6%AC%A1%E4%B8%96%E4%BB%A3AI%E6%88%A6%E7%95%A5",
       "posted": "2026-04-08",
-      "description": "リクルートのHR・不動産・旅行領域における次世代AI戦略VP。生成AI活用による新規プロダクト創出、AIプラットフォーム投資戦略、国内外スタートアップとのパートナーシップ構築を担います。"
+      "description": "リクルートのHR・不動産・旅行領域における次世代AI戦略VP。生成AI活用による新規プロダクト創出、AIプラットフォーム投資戦略、国内外スタートアップとのパートナーシップ構築を担います。",
+      "url_is_search": true
     },
     {
       "title": "AI Strategy Lead — BCG Gamma Japan",
@@ -479,9 +492,10 @@
       ],
       "source": "linkedin.com",
       "source_label": "LinkedIn",
-      "url": "https://www.linkedin.com/jobs/search/?keywords=AI+Strategy+Lead&location=Japan",
+      "url": "https://www.linkedin.com/jobs/search/?keywords=AI%20Strategy%20Lead%20%E2%80%94%20BCG%20Gamma%20Japan&location=Japan",
       "posted": "2026-04-22",
-      "description": "BCG Gamma Japan立ち上げ期を牽引するAI Strategy Lead。クライアント企業の経営幹部向けAI変革プログラムの設計・主導、Gamma グローバルとの技術連携、日本チーム採用・育成。"
+      "description": "BCG Gamma Japan立ち上げ期を牽引するAI Strategy Lead。クライアント企業の経営幹部向けAI変革プログラムの設計・主導、Gamma グローバルとの技術連携、日本チーム採用・育成。",
+      "url_is_search": true
     },
     {
       "title": "AI Product Lead（生成AIプロダクト事業責任者）",
@@ -502,9 +516,10 @@
       ],
       "source": "doda.jp",
       "source_label": "Doda",
-      "url": "https://doda.jp/DodaFront/View/JobSearchList/j_keyword=AI+Product+Lead/",
+      "url": "https://doda.jp/DodaFront/View/JobSearchList/j_keyword=AI%20Product%20Lead%EF%BC%88%E7%94%9F%E6%88%90AI%E3%83%97%E3%83%AD%E3%83%80%E3%82%AF%E3%83%88%E4%BA%8B%E6%A5%AD%E8%B2%AC%E4%BB%BB%E8%80%85%EF%BC%89/",
       "posted": "2026-05-03",
-      "description": "LayerXのバクラク事業におけるAIプロダクトリード。LLMを活用した経費精算・請求書処理の自動化機能を主導。PMチーム10名のマネジメント、ロードマップ策定、GTM戦略立案まで一貫して担当します。"
+      "description": "LayerXのバクラク事業におけるAIプロダクトリード。LLMを活用した経費精算・請求書処理の自動化機能を主導。PMチーム10名のマネジメント、ロードマップ策定、GTM戦略立案まで一貫して担当します。",
+      "url_is_search": true
     },
     {
       "title": "Head of AI Product — メルカリAIビジネス",
@@ -525,9 +540,10 @@
       ],
       "source": "jp.indeed.com",
       "source_label": "Indeed",
-      "url": "https://jp.indeed.com/jobs?q=AI+Product+Lead&l=%E6%97%A5%E6%9C%AC",
+      "url": "https://jp.indeed.com/jobs?q=Head%20of%20AI%20Product%20%E2%80%94%20%E3%83%A1%E3%83%AB%E3%82%AB%E3%83%AAAI%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9&l=%E6%97%A5%E6%9C%AC",
       "posted": "2026-04-26",
-      "description": "メルカリのAIプロダクト責任者。生成AI・レコメンデーション・画像認識を活用したフリマ体験の革新を主導。プロダクトマネージャー・MLエンジニア・UXデザイナー計15名のクロスファンクショナルチームをリード。"
+      "description": "メルカリのAIプロダクト責任者。生成AI・レコメンデーション・画像認識を活用したフリマ体験の革新を主導。プロダクトマネージャー・MLエンジニア・UXデザイナー計15名のクロスファンクショナルチームをリード。",
+      "url_is_search": true
     },
     {
       "title": "AI Product Director — Google Cloud AI",
@@ -549,9 +565,10 @@
       ],
       "source": "linkedin.com",
       "source_label": "LinkedIn",
-      "url": "https://www.linkedin.com/jobs/search/?keywords=AI+Product+Director&location=Japan",
+      "url": "https://www.linkedin.com/jobs/search/?keywords=AI%20Product%20Director%20%E2%80%94%20Google%20Cloud%20AI&location=Japan",
       "posted": "2026-04-24",
-      "description": "Google Cloud Japan AI プロダクト責任者。Vertex AI・Geminiを活用した日本市場向けAIプロダクトのローカライゼーション・GTM戦略・エンタープライズパートナーシップ構築を統括。英語必須。"
+      "description": "Google Cloud Japan AI プロダクト責任者。Vertex AI・Geminiを活用した日本市場向けAIプロダクトのローカライゼーション・GTM戦略・エンタープライズパートナーシップ構築を統括。英語必須。",
+      "url_is_search": true
     },
     {
       "title": "AIプロダクトリード（ソニーAI事業部）",
@@ -572,9 +589,10 @@
       ],
       "source": "kyujinbox.com",
       "source_label": "求人ボックス",
-      "url": "https://kyujinbox.com/search?q=AIプロダクトリード",
+      "url": "https://kyujinbox.com/search?q=AI%E3%83%97%E3%83%AD%E3%83%80%E3%82%AF%E3%83%88%E3%83%AA%E3%83%BC%E3%83%89%EF%BC%88%E3%82%BD%E3%83%8B%E3%83%BCAI%E4%BA%8B%E6%A5%AD%E9%83%A8%EF%BC%89",
       "posted": "2026-04-05",
-      "description": "ソニーAI事業部のプロダクトリード。エンタメ・センサー・ロボティクス領域へのAI活用プロダクト企画から市場投入まで責任を持ちます。クロスファンクショナルチームのリード・KPI設計・A/Bテスト運営を担当。"
+      "description": "ソニーAI事業部のプロダクトリード。エンタメ・センサー・ロボティクス領域へのAI活用プロダクト企画から市場投入まで責任を持ちます。クロスファンクショナルチームのリード・KPI設計・A/Bテスト運営を担当。",
+      "url_is_search": true
     }
   ],
   "by_source": {
