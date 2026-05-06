@@ -1,0 +1,51 @@
+name: Scrape AI Executive Jobs
+
+on:
+  schedule:
+    - cron: '0 18 * * 0'   # Sunday 18:00 UTC = Monday 03:00 JST
+  workflow_dispatch:         # Manual trigger from Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}-v1
+
+      - name: Install dependencies
+        run: |
+          pip install playwright httpx beautifulsoup4
+          playwright install --with-deps chromium
+
+      - name: Scrape executive AI jobs
+        run: python scrape_exec_jobs.py
+        env:
+          PYTHONUNBUFFERED: "1"
+
+      - name: Commit updated data
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add site/exec_jobs.json
+          if git diff --staged --quiet; then
+            echo "No changes — skipping commit"
+          else
+            git commit -m "Auto-update: AI exec jobs $(date -u +%Y-%m-%d) [skip ci]"
+            git push
+          fi

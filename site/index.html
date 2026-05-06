@@ -194,6 +194,125 @@ canvas.mini-chart { display: block; width: 100%; }
 }
 #lj-empty, #lj-loading { text-align: center; padding: 48px 20px; color: #555; }
 #lj-empty code { background: #222; padding: 2px 7px; border-radius: 3px; font-size: 12px; color: #888; }
+
+/* ── Exec jobs panel ─────────────────────────────────────────────────────── */
+#panel-execjobs {
+  flex: 1; overflow-y: auto; background: #111; padding: 14px 16px;
+}
+#ej-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 14px; gap: 10px;
+}
+#ej-updated { font-size: 11px; color: #555; margin-top: 3px; }
+#ej-refresh-btn {
+  flex-shrink: 0; background: #2a2a2a; border: 1px solid #3a3a3a; color: #888;
+  font-size: 11px; padding: 4px 11px; border-radius: 4px; cursor: pointer; font-family: inherit;
+}
+#ej-refresh-btn:hover { color: #ccc; border-color: #555; }
+
+/* Role summary cards (2×2 grid) */
+#ej-role-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;
+}
+@media (max-width: 600px) { #ej-role-grid { grid-template-columns: 1fr; } }
+.ej-role-card {
+  background: #1a1a1a; border: 1px solid #252525; border-radius: 10px;
+  padding: 14px 16px; cursor: pointer; transition: border-color 0.15s, background 0.15s;
+  position: relative; overflow: hidden;
+}
+.ej-role-card:hover { background: #1d1d1d; }
+.ej-role-card.active { border-color: var(--rc, #555); background: #1d1d1d; }
+.ej-role-card__accent {
+  position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+  background: var(--rc, #555);
+}
+.ej-role-card__top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.ej-role-card__icon { font-size: 18px; line-height: 1; }
+.ej-role-card__name { font-size: 13px; font-weight: 700; color: #e0e0e0; }
+.ej-role-card__name-ja { font-size: 10px; color: #666; margin-top: 1px; }
+.ej-role-card__count {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  padding: 1px 8px; border-radius: 20px; margin-bottom: 8px;
+  background: var(--rc, #555); color: #fff; opacity: 0.85;
+}
+.ej-role-card__salary { font-size: 11px; color: #7bc87b; margin-bottom: 8px; }
+.ej-role-card__skills { display: flex; flex-wrap: wrap; gap: 4px; }
+.ej-role-card .skill-tag {
+  font-size: 10px; padding: 1px 7px; border-radius: 3px;
+  background: #222; border: 1px solid #333; color: #888;
+}
+
+/* Role detail panel */
+#ej-role-detail {
+  background: #1a1a1a; border: 1px solid #252525; border-radius: 10px;
+  padding: 16px; margin-bottom: 14px;
+}
+#ej-role-detail h2 { font-size: 15px; color: #fff; margin-bottom: 4px; }
+#ej-role-detail .ej-detail-sub { font-size: 11px; color: #666; margin-bottom: 12px; }
+#ej-role-detail .ej-detail-desc { font-size: 12px; color: #bbb; line-height: 1.7; margin-bottom: 12px; }
+#ej-role-detail h4 { font-size: 11px; color: #777; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.03em; }
+.ej-resp-list { list-style: none; padding: 0; margin-bottom: 12px; }
+.ej-resp-list li {
+  font-size: 12px; color: #bbb; padding: 4px 0 4px 14px;
+  border-bottom: 1px solid #222; position: relative;
+}
+.ej-resp-list li::before { content: '›'; position: absolute; left: 0; color: #555; }
+.ej-detail-bg {
+  font-size: 11px; color: #777; background: #161616;
+  border-radius: 6px; padding: 8px 12px; line-height: 1.6;
+}
+
+/* Company chips */
+.ej-companies { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
+.ej-company-chip {
+  font-size: 11px; padding: 2px 10px; border-radius: 4px;
+  background: #202020; border: 1px solid #2a2a2a; color: #999;
+}
+
+/* Source chart */
+#ej-source-row {
+  display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;
+}
+.ej-source-pill {
+  font-size: 11px; padding: 4px 12px; border-radius: 20px;
+  border: 1px solid #2a2a2a; color: #777; background: #1a1a1a;
+}
+
+/* Job filter bar */
+#ej-filter-bar {
+  display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px;
+}
+.ej-filter-btn {
+  padding: 4px 12px; border-radius: 20px; border: 1px solid #333;
+  background: #1a1a1a; color: #777; font-size: 11px; cursor: pointer;
+  font-family: inherit; transition: all 0.15s;
+}
+.ej-filter-btn:hover { color: #aaa; border-color: #555; }
+.ej-filter-btn.active { color: #fff; border-color: #5a5a5a; background: #2a2a2a; }
+
+/* Exec job cards */
+#ej-cards h3 { font-size: 11px; color: #777; margin-bottom: 8px; font-weight: 600; }
+.ej-job-card {
+  background: #1a1a1a; border: 1px solid #252525; border-radius: 8px;
+  padding: 12px 14px; margin-bottom: 8px; text-decoration: none;
+  display: block; color: inherit; transition: border-color 0.15s, background 0.15s;
+  border-left: 3px solid var(--rc, #333);
+}
+.ej-job-card:hover { border-color: #3a3a3a; background: #1d1d1d; }
+.ej-job-card__top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.ej-job-card__title { font-size: 13px; font-weight: 700; color: #e0e0e0; line-height: 1.3; }
+.ej-source-badge {
+  flex-shrink: 0; font-size: 9px; padding: 2px 6px; border-radius: 3px;
+  background: #252525; border: 1px solid #333; color: #666; white-space: nowrap; margin-top: 2px;
+}
+.ej-job-card__meta { font-size: 11px; color: #666; margin-top: 4px; }
+.ej-job-card__salary { font-size: 12px; font-weight: 600; color: #7bc87b; margin-top: 4px; }
+.ej-job-card__skills { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px; }
+.ej-job-card .skill-tag {
+  font-size: 10px; padding: 1px 7px; border-radius: 3px;
+  background: #202028; border-color: #2a2a3a; color: #7878aa;
+}
+#ej-empty, #ej-loading { text-align: center; padding: 48px 20px; color: #555; }
 </style>
 </head>
 <body>
@@ -213,6 +332,7 @@ canvas.mini-chart { display: block; width: 100%; }
 <div id="tab-nav">
   <button class="tab-btn active" data-tab="treemap">職種AI影響度</button>
   <button class="tab-btn" data-tab="livejobs"><span class="live-dot"></span>AI新職種</button>
+  <button class="tab-btn" data-tab="execjobs">🏢 AIエグゼクティブ職</button>
 </div>
 
 <div id="panel-treemap">
@@ -253,6 +373,10 @@ canvas.mini-chart { display: block; width: 100%; }
 
 <div id="panel-livejobs" style="display:none">
   <div id="lj-loading">読み込み中...</div>
+</div>
+
+<div id="panel-execjobs" style="display:none">
+  <div id="ej-loading" style="text-align:center;padding:48px;color:#555">読み込み中...</div>
 </div>
 
 <div id="tooltip"></div>
@@ -1031,11 +1155,13 @@ function switchTab(tab) {
   document.querySelectorAll('.tab-btn').forEach(b =>
     b.classList.toggle('active', b.dataset.tab === tab));
   const isMap = tab === 'treemap';
-  document.getElementById('panel-treemap').style.display  = isMap ? 'flex'  : 'none';
-  document.getElementById('panel-livejobs').style.display = isMap ? 'none'  : 'block';
-  document.getElementById('controls').style.display       = isMap ? 'flex'  : 'none';
-  document.getElementById('stats-bar').style.display      = isMap ? ''      : 'none';
-  if (!isMap) loadLiveJobs();
+  document.getElementById('panel-treemap').style.display  = isMap          ? 'flex'  : 'none';
+  document.getElementById('panel-livejobs').style.display = tab==='livejobs'? 'block' : 'none';
+  document.getElementById('panel-execjobs').style.display = tab==='execjobs'? 'block' : 'none';
+  document.getElementById('controls').style.display       = isMap          ? 'flex'  : 'none';
+  document.getElementById('stats-bar').style.display      = isMap          ? ''      : 'none';
+  if (tab === 'livejobs') loadLiveJobs();
+  if (tab === 'execjobs') loadExecJobs();
 }
 
 document.querySelectorAll('.tab-btn').forEach(btn =>
@@ -1047,6 +1173,186 @@ window.addEventListener('resize', () => {
     renderSalaryChart(liveJobsData.salary_by_role || {});
   }
 });
+
+// ── Exec Jobs ─────────────────────────────────────────────────────────────────
+
+let execJobsData = null;
+let execJobsLoaded = false;
+let execFilter = 'all';
+
+async function loadExecJobs() {
+  if (execJobsLoaded && execJobsData) { renderExecJobs(); return; }
+  document.getElementById('panel-execjobs').innerHTML =
+    '<div id="ej-loading">読み込み中...</div>';
+  try {
+    const r = await fetch('exec_jobs.json');
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    execJobsData = await r.json();
+    execJobsLoaded = true;
+    renderExecJobs();
+  } catch (e) {
+    document.getElementById('panel-execjobs').innerHTML = `
+      <div id="ej-empty">
+        <div style="font-size:2rem;margin-bottom:14px">🏢</div>
+        <div style="color:#888;font-size:14px;margin-bottom:10px">データが見つかりません</div>
+        <div style="color:#555;font-size:12px">以下を実行してデータを取得してください:</div>
+        <div style="margin-top:10px"><code>python scrape_exec_jobs.py</code></div>
+        <div style="color:#333;font-size:11px;margin-top:14px">${escHtml(e.message)}</div>
+      </div>`;
+  }
+}
+
+function renderExecJobs() {
+  const d = execJobsData;
+  const roles = d.roles || {};
+  const roleKeys = Object.keys(roles);
+  const updatedStr = d.updated_at ? new Date(d.updated_at).toLocaleString('ja-JP') : '不明';
+  const sampleNote = d.note
+    ? `<span style="color:#7a6a2a;font-size:10px;margin-left:8px">[サンプルデータ]</span>` : '';
+  const sources = Object.entries(d.by_source || {})
+    .map(([src, n]) => `<span class="ej-source-pill">${escHtml(src)}&thinsp;${n}件</span>`).join('');
+
+  // Role cards HTML
+  const roleCards = roleKeys.map(rk => {
+    const r = roles[rk];
+    const col = r.color || '#555';
+    const sal = r.salary
+      ? `${Math.round(r.salary.min/10000)}〜${Math.round(r.salary.max/10000)}万円`
+      : '年収非公開';
+    const skills = (r.top_skills || []).slice(0,4)
+      .map(s => `<span class="skill-tag">${escHtml(s)}</span>`).join('');
+    return `
+      <div class="ej-role-card" style="--rc:${col}"
+           onclick="selectRole(${JSON.stringify(rk)})">
+        <div class="ej-role-card__accent"></div>
+        <div class="ej-role-card__top">
+          <span class="ej-role-card__icon">${r.icon||'🤖'}</span>
+          <div>
+            <div class="ej-role-card__name">${escHtml(r.name_en||rk)}</div>
+            <div class="ej-role-card__name-ja">${escHtml(r.name_ja||'')}</div>
+          </div>
+        </div>
+        <span class="ej-role-card__count">${r.count||0}件</span>
+        <div class="ej-role-card__salary">💴 ${sal}</div>
+        <div class="ej-role-card__skills">${skills}</div>
+      </div>`;
+  }).join('');
+
+  // Filter buttons
+  const filterBtns = [
+    `<button class="ej-filter-btn active" data-role="all" onclick="filterExecJobs('all')">全ポジション</button>`,
+    ...roleKeys.map(rk =>
+      `<button class="ej-filter-btn" data-role="${escHtml(rk)}" onclick="filterExecJobs(${JSON.stringify(rk)})">${escHtml(rk)}</button>`)
+  ].join('');
+
+  document.getElementById('panel-execjobs').innerHTML = `
+    <div id="ej-header">
+      <div>
+        <div style="font-size:14px;color:#ccc;font-weight:600">${d.total||0}件のAIエグゼクティブ求人${sampleNote}</div>
+        <div id="ej-updated">最終更新: ${updatedStr} · 出典: ${(d.sources||[]).join(' / ')}</div>
+      </div>
+      <button id="ej-refresh-btn" onclick="execJobsLoaded=false;loadExecJobs()">↻ 更新</button>
+    </div>
+
+    <div id="ej-role-grid">${roleCards}</div>
+
+    <div id="ej-role-detail" style="display:none"></div>
+
+    ${sources ? `<div id="ej-source-row">${sources}</div>` : ''}
+
+    <div id="ej-filter-bar">${filterBtns}</div>
+
+    <div id="ej-cards"><h3>求人リスト（${(d.jobs||[]).length}件）</h3></div>`;
+
+  execFilter = 'all';
+  renderExecCards();
+}
+
+function selectRole(roleKey) {
+  if (!execJobsData) return;
+  const roles = execJobsData.roles || {};
+  const r = roles[roleKey];
+  if (!r) return;
+
+  // Highlight selected card
+  document.querySelectorAll('.ej-role-card').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.ej-role-card').forEach(c => {
+    if (c.querySelector('.ej-role-card__name')?.textContent === (r.name_en || roleKey))
+      c.classList.add('active');
+  });
+
+  // Render detail panel
+  const col = r.color || '#555';
+  const companies = (r.top_companies || [])
+    .map(c => `<span class="ej-company-chip">${escHtml(c)}</span>`).join('');
+  const resps = (r.responsibilities_ja || [])
+    .map(t => `<li>${escHtml(t)}</li>`).join('');
+  const skills = (r.top_skills || []).slice(0,8)
+    .map(s => `<span class="skill-tag" style="border-color:${col}44;color:${col}">${escHtml(s)}</span>`).join('');
+
+  const detail = document.getElementById('ej-role-detail');
+  detail.style.display = 'block';
+  detail.style.borderColor = col + '55';
+  detail.innerHTML = `
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+      <span style="font-size:22px">${r.icon||'🤖'}</span>
+      <div>
+        <h2 style="color:${col}">${escHtml(r.name_en||roleKey)}</h2>
+        <div class="ej-detail-sub">${escHtml(r.name_ja||'')} · ${r.count||0}件の求人</div>
+      </div>
+    </div>
+    <div class="ej-detail-desc">${escHtml(r.description_ja||'')}</div>
+    ${resps ? `<h4>主な職責</h4><ul class="ej-resp-list">${resps}</ul>` : ''}
+    ${companies ? `<h4>採用企業例</h4><div class="ej-companies">${companies}</div>` : ''}
+    ${skills ? `<h4>求められるスキル</h4><div class="job-card__skills" style="margin-bottom:12px">${skills}</div>` : ''}
+    ${r.background_ja ? `<div class="ej-detail-bg">🎓 ${escHtml(r.background_ja)}</div>` : ''}`;
+
+  // Filter job listings to this role
+  filterExecJobs(roleKey);
+}
+
+function filterExecJobs(roleKey) {
+  execFilter = roleKey;
+  document.querySelectorAll('.ej-filter-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.role === roleKey);
+  });
+  renderExecCards();
+}
+
+function renderExecCards() {
+  const container = document.getElementById('ej-cards');
+  if (!container || !execJobsData) return;
+  const jobs = (execJobsData.jobs || []).filter(j =>
+    execFilter === 'all' || j.role_category === execFilter
+  );
+  const roles = execJobsData.roles || {};
+  const cards = jobs.map(j => {
+    const r = roles[j.role_category] || {};
+    const col = r.color || '#555';
+    const sal = j.salary_min && j.salary_max
+      ? `${Math.round(j.salary_min/10000)}〜${Math.round(j.salary_max/10000)}万円`
+      : j.salary_min ? `${Math.round(j.salary_min/10000)}万円〜` : '年収非公開';
+    const skills = (j.skills||[]).slice(0,5)
+      .map(s => `<span class="skill-tag">${escHtml(s)}</span>`).join('');
+    const isNew = j.is_new
+      ? `<span style="font-size:9px;background:#2a4a2a;color:#7bc87b;padding:1px 5px;border-radius:3px;margin-left:6px">NEW</span>` : '';
+    return `
+      <a class="ej-job-card" href="${escHtml(j.url||'#')}" target="_blank" rel="noopener"
+         style="--rc:${col}">
+        <div class="ej-job-card__top">
+          <div class="ej-job-card__title">${escHtml(j.title)}${isNew}</div>
+          <span class="ej-source-badge">${escHtml(j.source_label||j.source||'')}</span>
+        </div>
+        <div class="ej-job-card__meta">
+          <span style="color:${col};margin-right:6px">${r.icon||''}  ${escHtml(j.role_category||'')}</span>
+          · ${escHtml(j.company||'')}${j.location?' · '+escHtml(j.location):''}
+        </div>
+        <div class="ej-job-card__salary">${sal}</div>
+        ${skills?`<div class="ej-job-card__skills">${skills}</div>`:''}
+      </a>`;
+  }).join('');
+  container.innerHTML = `<h3>${execFilter==='all'?'全ポジション':escHtml(execFilter)} — ${jobs.length}件</h3>` + cards;
+}
 </script>
 </body>
 </html>
