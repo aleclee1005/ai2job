@@ -1,0 +1,262 @@
+{
+  "updated_at": "2026-05-06T08:30:00",
+  "source": "doda.jp",
+  "total": 247,
+  "note": "サンプルデータ。scrape_jobs.py を実行してリアルデータに差し替えてください。",
+  "jobs": [
+    {
+      "title": "生成AIエンジニア（LLMアプリケーション開発）",
+      "company": "株式会社メルカリ",
+      "location": "東京",
+      "salary_min": 7000000,
+      "salary_max": 12000000,
+      "role_category": "生成AI・LLM",
+      "skills": ["Python", "LangChain", "OpenAI API", "AWS", "Docker"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-05"
+    },
+    {
+      "title": "機械学習エンジニア／MLOps基盤構築",
+      "company": "サイバーエージェント",
+      "location": "東京",
+      "salary_min": 6000000,
+      "salary_max": 10000000,
+      "role_category": "MLOps・AI基盤",
+      "skills": ["Python", "PyTorch", "MLflow", "Kubernetes", "GCP"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-04"
+    },
+    {
+      "title": "データサイエンティスト（マーケティング分析）",
+      "company": "楽天グループ株式会社",
+      "location": "東京",
+      "salary_min": 5500000,
+      "salary_max": 9000000,
+      "role_category": "データサイエンティスト",
+      "skills": ["Python", "SQL", "機械学習", "Tableau", "BigQuery"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-05"
+    },
+    {
+      "title": "AIリサーチエンジニア（自然言語処理）",
+      "company": "株式会社Preferred Networks",
+      "location": "東京",
+      "salary_min": 8000000,
+      "salary_max": 15000000,
+      "role_category": "機械学習エンジニア",
+      "skills": ["Python", "PyTorch", "Hugging Face", "CUDA", "論文実装"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-03"
+    },
+    {
+      "title": "データエンジニア（データ基盤・ETL設計）",
+      "company": "ヤフー株式会社",
+      "location": "東京",
+      "salary_min": 5000000,
+      "salary_max": 8500000,
+      "role_category": "データエンジニア",
+      "skills": ["Python", "SQL", "Spark", "Airflow", "AWS"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-05"
+    },
+    {
+      "title": "AIプロダクトマネージャー（エンタープライズ向けSaaS）",
+      "company": "SmartHR株式会社",
+      "location": "東京",
+      "salary_min": 8000000,
+      "salary_max": 14000000,
+      "role_category": "AIプロダクトマネージャー",
+      "skills": ["プロダクト開発", "AI戦略", "SQL", "ユーザーリサーチ"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-04"
+    },
+    {
+      "title": "AIエンジニア（画像認識・製造業向け）",
+      "company": "富士通株式会社",
+      "location": "川崎",
+      "salary_min": 5500000,
+      "salary_max": 9500000,
+      "role_category": "AIエンジニア",
+      "skills": ["Python", "TensorFlow", "OpenCV", "C++", "Edge AI"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-02"
+    },
+    {
+      "title": "LLMアプリケーション開発エンジニア",
+      "company": "株式会社LayerX",
+      "location": "東京",
+      "salary_min": 7000000,
+      "salary_max": 13000000,
+      "role_category": "生成AI・LLM",
+      "skills": ["Python", "LangChain", "RAG", "PostgreSQL", "GCP"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-06"
+    },
+    {
+      "title": "データサイエンティスト（ヘルスケア・医療AI）",
+      "company": "エムスリー株式会社",
+      "location": "東京",
+      "salary_min": 6000000,
+      "salary_max": 10000000,
+      "role_category": "データサイエンティスト",
+      "skills": ["Python", "R", "統計解析", "機械学習", "SQL"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-04"
+    },
+    {
+      "title": "機械学習エンジニア（推薦システム）",
+      "company": "株式会社DeNA",
+      "location": "東京",
+      "salary_min": 6500000,
+      "salary_max": 11000000,
+      "role_category": "機械学習エンジニア",
+      "skills": ["Python", "PyTorch", "推薦アルゴリズム", "Spark", "AWS"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-03"
+    },
+    {
+      "title": "AIエンジニア（チャットボット・会話AI）",
+      "company": "ソフトバンク株式会社",
+      "location": "東京",
+      "salary_min": 5500000,
+      "salary_max": 9000000,
+      "role_category": "AIエンジニア",
+      "skills": ["Python", "LLM", "NLP", "Azure OpenAI", "Docker"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-05"
+    },
+    {
+      "title": "データエンジニア（リアルタイム分析基盤）",
+      "company": "NTTデータ株式会社",
+      "location": "東京",
+      "salary_min": 5000000,
+      "salary_max": 8000000,
+      "role_category": "データエンジニア",
+      "skills": ["Python", "Kafka", "Spark", "AWS", "Terraform"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-01"
+    },
+    {
+      "title": "生成AI・RAGシステム構築エンジニア",
+      "company": "株式会社ABEJA",
+      "location": "東京",
+      "salary_min": 6500000,
+      "salary_max": 11000000,
+      "role_category": "生成AI・LLM",
+      "skills": ["Python", "RAG", "Qdrant", "LangChain", "OpenAI API"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-06"
+    },
+    {
+      "title": "MLOpsエンジニア（AI基盤・プラットフォーム）",
+      "company": "LINE株式会社",
+      "location": "東京",
+      "salary_min": 7000000,
+      "salary_max": 12000000,
+      "role_category": "MLOps・AI基盤",
+      "skills": ["Python", "Kubeflow", "Kubernetes", "GCP", "MLflow"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-04"
+    },
+    {
+      "title": "データサイエンティスト（金融リスク分析）",
+      "company": "マネーフォワード株式会社",
+      "location": "東京",
+      "salary_min": 6000000,
+      "salary_max": 10000000,
+      "role_category": "データサイエンティスト",
+      "skills": ["Python", "SQL", "機械学習", "統計学", "BigQuery"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-05"
+    },
+    {
+      "title": "コンピュータビジョンエンジニア（自動運転）",
+      "company": "Toyota Research Institute Japan",
+      "location": "愛知",
+      "salary_min": 8000000,
+      "salary_max": 16000000,
+      "role_category": "機械学習エンジニア",
+      "skills": ["Python", "C++", "PyTorch", "OpenCV", "ROS"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-03"
+    },
+    {
+      "title": "AIエンジニア（ゲームAI・行動予測）",
+      "company": "任天堂株式会社",
+      "location": "京都",
+      "salary_min": 5500000,
+      "salary_max": 9000000,
+      "role_category": "AIエンジニア",
+      "skills": ["C++", "Python", "強化学習", "ゲームエンジン"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-02"
+    },
+    {
+      "title": "生成AI活用コンサルタント（DX支援）",
+      "company": "アクセンチュア株式会社",
+      "location": "東京",
+      "salary_min": 7000000,
+      "salary_max": 14000000,
+      "role_category": "AIプロダクトマネージャー",
+      "skills": ["生成AI", "ChatGPT", "Azure OpenAI", "プロジェクト管理"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-06"
+    },
+    {
+      "title": "データエンジニア（小売・EC分析基盤）",
+      "company": "株式会社ZOZO",
+      "location": "千葉",
+      "salary_min": 5000000,
+      "salary_max": 8500000,
+      "role_category": "データエンジニア",
+      "skills": ["Python", "SQL", "dbt", "BigQuery", "Airflow"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-05"
+    },
+    {
+      "title": "AIエンジニア（音声認識・音声合成）",
+      "company": "ヤマハ株式会社",
+      "location": "静岡",
+      "salary_min": 5500000,
+      "salary_max": 9000000,
+      "role_category": "AIエンジニア",
+      "skills": ["Python", "PyTorch", "音声処理", "DSP", "C++"],
+      "url": "https://doda.jp/",
+      "posted": "2026-05-04"
+    }
+  ],
+  "by_role": {
+    "AIエンジニア": 68,
+    "データサイエンティスト": 52,
+    "機械学習エンジニア": 41,
+    "生成AI・LLM": 38,
+    "データエンジニア": 28,
+    "MLOps・AI基盤": 12,
+    "AIプロダクトマネージャー": 8
+  },
+  "salary_by_role": {
+    "AIエンジニア":             {"min": 5000000, "avg": 7200000, "max": 12000000},
+    "データサイエンティスト":   {"min": 4500000, "avg": 6800000, "max": 11000000},
+    "機械学習エンジニア":       {"min": 5500000, "avg": 8000000, "max": 16000000},
+    "生成AI・LLM":             {"min": 6000000, "avg": 9200000, "max": 16000000},
+    "データエンジニア":         {"min": 4000000, "avg": 6000000, "max": 10000000},
+    "MLOps・AI基盤":           {"min": 6000000, "avg": 8800000, "max": 15000000},
+    "AIプロダクトマネージャー": {"min": 7000000, "avg": 10500000, "max": 20000000}
+  },
+  "top_skills": {
+    "Python":              198,
+    "SQL":                 145,
+    "機械学習":             132,
+    "クラウド(AWS/GCP)":   118,
+    "PyTorch":              97,
+    "Docker/Kubernetes":    84,
+    "LLM/GPT":             76,
+    "データ分析":           72,
+    "Spark/BigQuery":       58,
+    "MLflow/Airflow":       42,
+    "LangChain":            38,
+    "TensorFlow":           31,
+    "統計学":               28,
+    "R言語":                18
+  }
+}
